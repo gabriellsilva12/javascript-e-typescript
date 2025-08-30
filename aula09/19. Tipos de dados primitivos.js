@@ -1,0 +1,9 @@
+//TIPOS PRIMITIVOS
+
+const nome = `Luiz`; // STRING
+const numero = 10; // NUMBER
+const Vazio = null; // NULO -> PARA VARIAVEIS VAZIAS MAS QUE IRÃO RECEBER UM VALOR NO FUTURO
+let vazio; // UNDEFINED -> UMA VARIAVEL VAZIA, MAS QUE NÃO DEVE SER UTUILIZADA E SIM O NULL
+const boolean = true; // BOOLEAN, TRUE OU FALSE (CONSIDERADO UM VALOR LÓGICO)
+
+console.log(typeof nome)

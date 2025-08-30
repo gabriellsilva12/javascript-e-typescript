@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+    outline: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    --color-verifiqued: #73ff00;
+    --primary-color: #76a2a5;
+    --primary-color-dark: #628587;
+}
+
+
+body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Open Sans', sans-serif;
+    background: var(--primary-color);
+    padding: 0;
+    margin: 0;
+}
+h1 {
+    padding: 0px;
+    font-size: 2em;
+    margin: 10px 0px;
+}
+h3 {
+    margin: 10px 0px;
+    font-size: 20px;
+}
+p {
+    font-size: 20px;
+    margin: 10px 0px;
+}
+.container {
+    border-radius: 10px;
+    text-align: left;
+    max-width: 650px;
+    padding: 20px;
+    height:650px;
+    background-color: rgb(255, 253, 253);
+    box-shadow: 5px 5px 13px rgba(0, 0, 0, 0.539);
+}
+
+#tabela {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#imc, #resultado {
+    width: 50%;
+}
+
+
+input, button {
+    font-size: 20px;
+    margin: 5px 0px;
+    width: 100%;
+
+}
+label {
+    font-size: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+input:focus {
+    padding: 2px 10px;
+    border: solid 1px var(--primary-color);
+}
+#buttonform {
+    border-radius: 10px;
+    margin-top: 10px;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: var(--primary-color);
+    height: 45px;
+    font-size: 20px;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+#buttonform:hover {
+    background-color: var(--primary-color-dark);
+}
+
+#buttonform:active {
+    background-color: rgb(75, 168, 60);
+}
