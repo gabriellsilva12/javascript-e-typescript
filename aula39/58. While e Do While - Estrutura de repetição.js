@@ -6,8 +6,22 @@
 // console.log(`òlaaa ${c}`)
 function random(min, max) {
     const r = Math.random() * (min, max) + min
-    return r
+    return Math.round(r)
 }
-const v = random(1,10)
-console.log(v)
-console.log(Math.round(v))
+const min = 0;
+const max = 50;
+let rand = random(min, max)
+
+// WHILE
+while (rand !== 10) {
+    rand = random(min, max)
+    console.log(rand)
+}
+ 
+// DO WHILE
+do {
+    rand = random(min, max)
+    console.log(rand)
+} while(rand !== 10);
+
+
