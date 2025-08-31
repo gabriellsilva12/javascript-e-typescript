@@ -12,8 +12,9 @@ for ( c = 0; c < elementos.length; c++ ) {
 
     
     const { tag, texto } = elementos[c];
-    let pp = document.createElement(`${tag}`)
-    
+    let pp = document.createElement(tag)
+    let tt = document.createTextNode(texto)
+
     pp.innerHTML += `${tag}`;
     containe.appendChild(pp);    
 }
