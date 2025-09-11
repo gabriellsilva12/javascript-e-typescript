@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    outline: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    --color-verifiqued: #73ff00;
+    --primary-color: #191516;
+    --primary-color-dark: #628587;
+    --h1-container-background: #ab2346;
+}
+
+body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Open Sans', sans-serif;
+    background: var(--primary-color);
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-left: 130px;
+    text-align: left;
+    font-size: 20px;
+}
+h1 {
+    position: relative;
+    display: inline-block;
+    top: 0;
+    left: 50%;
+    padding: 15px 20px 15px 20px;
+    transform: translate(-50%);
+    background-color: var(--h1-container-background);
+    color: white;
+    text-align: center;
+    margin: 0px;
+    width: 100vh;
+    font-size: 2em;
+    box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.759);
+}
+
+.container {
+    overflow: hidden;
+    border-radius: 10px;
+    text-align: center;
+    width: 500px;
+    max-width: 900px;
+    padding: 0px 20px 20px 20px;
+    height: 500px;
+    max-height:650px;
+    background-color: white;
+    box-shadow: 5px 10px 13px rgba(255, 255, 255, 0.699);
+    
+    & #inputTxt {
+        padding-left: 15px;
+        box-shadow: 3px 5px 13px rgba(0, 0, 0, 0.515);
+        border: solid 1.5px black;
+    }
+
+    & #inputTxt:focus {
+        border: solid 1.5px #ab2346;
+    }
+    
+    & #btAdicionar {
+        box-shadow: 3px 5px 13px rgba(0, 0, 0, 0.515);
+        border: solid 1.5px black;
+    }
+    
+    & #btAdicionar:active {
+        background-color: #ab2346;
+        color: white;
+    }
+}
+
+#tarefas {
+    
+    
+    & li{
+        margin-left: 22px;
+        line-height: 1.7;
+    }
+    
+    & .excluir {
+        margin-left: 10px;
+        border-radius: 10%;
+        box-shadow: 3px 5px 13px rgba(0, 0, 0, 0.515);
+        border: solid 0.5px black;
+        color: white;
+        background-color: #ab2346;
+        cursor: pointer;
+    }
+}
+
