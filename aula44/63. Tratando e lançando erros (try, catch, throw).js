@@ -19,10 +19,10 @@ function soma(x,y) {
 }
 
 
-try { // ESSA PARTE DO CODIGO É EXECUTADA QUANDO NÃO HA ERROS
+try { // ESSA PARTE DO CODIGO É EXECUTADA INDEPENDENTE SE TIVER OU NÃO ERROS
     console.log(soma(2,3))
     console.log(soma(`2`,3))
-} catch(erro) { // ESSA É EXECUTADA QUANDO HA ERROS
+} catch(erro) { // ESSA É EXECUTADA QUANDO ENCONTRA ERROS NO TRY
     // console.log(erro)
     console.log(`Alguma coisa mais amigavel para o usuario.`)
 }

@@ -1,93 +1,69 @@
-const inputTarefas = document.querySelector('#inputTxt')
-const tarefas = document.querySelector('#tarefas')
+const textoInput = document.querySelector('#inputTxt')
 const botaoAdicionar = document.querySelector('#btAdicionar')
+const divTarefas = document.querySelector('#tarefas')
 
+textoInput.addEventListener('keypress', function (p) {    
+    if (p.keyCode == 13) {
+        criaTarefas(textoInput.value)
+    }
+})
+botaoAdicionar.addEventListener('click',function () {
+    criaTarefas(textoInput.value)
+})
 
-function criarBotao() {
-    const botao = document.createElement('button')
+function criarBotaoExcluir() {
+    let botao = document.createElement('button')
     botao.innerHTML = 'excluir'
     botao.classList = 'excluir'
     return botao
 }
+document.addEventListener('click', function (p) {
+    const excluir = p.target;
 
-function limparInput() {
-    inputTarefas.value = ''
-    inputTarefas.focus()
+    if (excluir.classList.contains('excluir')) {
+        excluir.parentElement.remove()
+        salvarTarefas()
+    }
+})
+
+function salvarTarefas() {
+    const tarefasLi = document.querySelectorAll('li')
+    const arrayLi = []
+
+    for (let tarefas of tarefasLi) {
+        let textoTarefas = tarefas.innerText;
+        textoTarefas = textoTarefas.replace('excluir','');
+        arrayLi.push(textoTarefas)
+    }
+    // console.log(arrayLi);
+    const arrayJson = JSON.stringify(arrayLi)
+    localStorage.setItem('tarefas', arrayJson)
+    // console.log(arrayJson);
 }
+
+function trazerStorage() {
+    const arrayJson = localStorage.getItem('tarefas')
+    const array = JSON.parse(arrayJson)
+
+    for (let tarefas of array) {
+        criaTarefas(tarefas)
+    }
+}
+trazerStorage()
 
 function criarLi() {
     const li = document.createElement('li')
     return li
 }
 
-function criarTextoLi() {
-    let tarefasTxt = inputTarefas
-
-    tarefasTxt = tarefasTxt.value
-    return tarefasTxt
-}
-
-function salvarTarefas() {
-    let liTarefas = tarefas.querySelectorAll('li')
-    let arrayLi = []
-
-    for (let tarefas of liTarefas ){
-
-        let txtTarefas = tarefas.innerText
-        txtTarefas = txtTarefas.replace('excluir','')
-        arrayLi.push(txtTarefas)   
-    }
-    
-    // console.log(arrayLi)     
-    let arrayJson = JSON.stringify(arrayLi)
-    localStorage.setItem('tarefas', arrayJson)
-    // console.log(arrayJson)
-
-}
-
-function trazerTarefas() {
-    let array = localStorage.getItem('tarefas')
-    // if (!array) return
-    const listaTarefas = JSON.parse(array)
-
-    for (let tarefa of listaTarefas) {
-        criarTarefas(tarefa)
-    }
-}
-trazerTarefas()
-
-function criarTarefas(text) {
-    const txtTarefas = text || criarTextoLi()
-    if (!txtTarefas) return
-    limparInput()
+function criaTarefas(text) {
+    if (!text) return
 
     const li = criarLi()
-    const botaoExcluir = criarBotao()
+    const botao = criarBotaoExcluir()
 
-    li.innerText = txtTarefas
-    li.appendChild(botaoExcluir)
-    tarefas.appendChild(li)
+    li.innerHTML = text
+    li.appendChild(botao)
+    divTarefas.appendChild(li)
     salvarTarefas()
-
 }
-document.addEventListener('click', function (p) {
-    const botaoExcluir = p.target
-    if (botaoExcluir.classList.contains('excluir')) {
-        botaoExcluir.parentElement.remove()
-        salvarTarefas()
-    }
-
-})
-
-
-
-botaoAdicionar.addEventListener('click', function () {
-    criarTarefas()
-})
-
-document.addEventListener('keypress', function (p) {
-
-    if (p.keyCode === 13) {
-        criarTarefas()
-    }
-})

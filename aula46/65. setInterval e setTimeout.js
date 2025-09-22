@@ -17,6 +17,6 @@ setTimeout(function () {
     clearInterval(time)
 }, 5000)
 
-setTimeout(function () {
-    console.log(`fiimmmm`)
-}, 3000)
+// setTimeout(function () {
+//     console.log(`fiimmmm`)
+// }, 3000)
