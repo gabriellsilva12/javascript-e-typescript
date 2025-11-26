@@ -1,0 +1,43 @@
+
+//          CRIAR     LER     ATUALIZAR   APAGAR
+// CRUD ->  CREATE,   READ,   UPDATE,     DELETE
+//          POST      GET     PUT         DELETE 
+
+//////////////////////////////////////////////////////
+
+npm i express --save-dev / -D < salva como devDependencies
+npm i express --save-prod  < salva em produção/dependencies
+npm i express -E  < não permite que o expresse seja atualizado para uma nova versão
+
+npm i express < instala o express
+npm i nodemon < instala o nodemon 
+npm i ejs < instala o ejs para trabalhar com views 
+
+nmp remove express  < remove o express
+nmp uninstall express  < remove o express
+npm ls < ver pacotes instalados
+npm i express@4.0.0  < atualiza para uma versão expecifica 
+npm update  < atualiza os pacotes
+npm outdated  < ver pacotes desatualizados
+
+//////////////////////////////////////////////////////
+
+versão: 2.      1.      0
+        major   minor   patch
+
+patch = correção de bugs, versão 2.1.2 
+minor = adicionar um recurso novo, versão 2.2.0
+major = Quebra compatibilidade / muda muito 3.0.0
+
+//////////////////////////////////////////////////////
+                  XXXX ERROS XXXX
+ReferenceError > você usou uma variável que não existe
+       
+SyntaxError > problema de digitação ou estrutura (ex: chave faltando)
+
+TypeError > algo do tipo errado (ex: tentou usar req.params? com erro de sintaxe)
+
+PathError > erro na rota ou no caminho do Express
+
+at Object.<anonymous> (arquivo:linha:coluna) > local exato onde o erro ocorreu
+

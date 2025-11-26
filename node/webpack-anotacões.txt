@@ -1,0 +1,364 @@
+iniciar e instalar webpack
+
+1 - npm init -y
+2 - npm i webpack webpack-cli --save-dev
+3 - criar pasta 'src' < onde vai ser gerado o codigo de entrada
+4 - dentro de src > criar arquivo index.js
+    > console.log('Testando webpack') <
+5 - terminal > 
+6 - vai gerar um arquivo main.js de saida,
+    entrada > index.js
+    saida > main.js
+7 - criar pasta chamada 'public' e adicionar arquivo index.html
+8 - dentro de index.html crie um html(! + tab), agora use <script> e dentro coloque o caminho da pasta dist/main.js
+9 - aperte com o botão direito sobre o arquivo index.html e clique em copy path, ele vai copiar o caminho relativo do index.js, após copiar cole ele no seu navegador.
+
+/////////////////////////////////////////////////////////////////////////
+
+importação e exportacão de arquivos
+
+1 - na pasta src onde esta index.js, crie um arquivo chamado calc.js
+
+2 - dentro de calc.js crie uma funcão chamada soma que ira receber 2 parametros(a,b) > dentro dessa funcão faça um > console.log( a + b )
+
+3 - depois no final do codigo exporte como padrão a funcão que você acabou de criar
+    > export default soma <
+
+4 - dentro de index.js faça a importacão da funcão soma
+    > import soma from './calc' <
+
+5 - chame a funcão passando 2 parametros para ela e depois rode o npx webpack e veja o resultado do console.log no navegador
+
+/////////////////////////////////////////////////////////////////////////
+
+configuração webpack.config.js
+
+1 -
+const path = require('path') // para pegar o caminho absoluto
+
+module.exports = {
+    entry: './src/index.js', // aqui vai o arquivo de entrada
+    output: {
+        filename: 'bundle.js', // nome do arquivo de saida
+        path: path.resolve(__dirname, './dist') // caminho absoluto
+    }
+}
+
+2 - apos criar rode npx webapck, ele ira criar um novo arquivo de saida na pasta dist, chamado bundle.js igual ao index.js, pode apagar o main.js
+
+3 - ir no arquivo index.html e trocar o caminho do script para o novo caminho de saida bundle.js
+    > <script src="./src/bundle.js"> <
+
+/////////////////////////////////////////////////////////////////////////
+
+carregar css com webapck
+
+1 - dentro de src crie um arquivo js exemplo "heading.js"
+
+2 - dentro de heading.js crie uma class
+
+    class Heading {
+        create(text) {
+
+            const heading = document.createElement('h2')
+
+            heading.innerHTML = text
+            heading.className.add('main-title')
+
+            document.querySelector('body').appendChild(heading)
+
+            
+        }
+    }
+
+export default Heading;     // exporte ela para poder acessar dentro do arquivo de entrada
+
+3 - dentro de index.js importa heading
+    > import Heading from './heading.js' <
+
+4 - após importa adicione o heading, crie uma variavel para receber e acessar a class heading e create.
+    > const heading = new Heading() 
+      heading.create('Este titulo é dinamico.') <
+
+5 - no arquivo heading.css, adicione uma className.add()
+     > heading.className.add('main-title') <
+
+6 - dentro de src crie uma pasta chamada 'components', nela você ira criar um arquivo chamado 'heading.css' e tbm ira mover o arquivo heading.js para a mesma pasta
+
+    src/
+       components/
+                heading.js
+                heading.css
+
+7 - dentro de heading.css
+    .main-title {
+        background-color: black;
+        color: white; 
+        border: 1px solid black; 
+    }
+
+8 - dentro de heading.js importe o heading.css
+    import './heading.css'
+
+9 - dentro de webpack.config.js para carregar o css
+
+        const path = require('path');
+
+        module.exports = {
+            entry: './src/index.js',
+            output: {
+                filename: 'bundle',
+                path: path.resolve(__dirname, "dist")
+            }
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.css$/,    < // expressão regular
+                    use: [
+                        'style-loader', 'css-loader'
+                    ]
+                }
+            ]
+        }
+ordem de use:
+
+    esquerda        direita
+    style-loader    css-loader'    
+
+css-loader = primeiro ira identificar os arquivos css
+style-loader = depois ira tranformar os arquivos em estilo
+
+10 - fazer a instalação de css-loader e style-css
+    npm i style-css loader-css --save-dev
+
+11 - nesse momento o nosso css esta dentro do cabeçalho do navegador.
+
+Dessa maneira > <style>.text-h2 {
+                    background-color: rgb(0, 136, 255);
+                    color: #ffffff;
+                    padding: 20px;
+                    font-size: 30px;
+                    text-align: center;
+                }</style>
+
+12 - agora vamos externalizar o css para poder coloca-lo dentro de um arquivo
+
+/////////////////////////////////////////////////////////////////////////
+
+Externalizar Css para dentro de um arquivo proprio
+
+agora iremos trabalhar com plugins pois nesse momento o nosso css está sendo gerado dentro de head de html, e iremos fazer ele ser gerado em arquivos separados
+
+1 - dentro de webapack.config.js, faremos a instalação do miniCssExtractPlugin
+2 - crie uma variavel e com o nome 'miniCssExtractPlugin' e faça um require('mini-css-extract-plugin')
+
+> const miniCssExtractPlugin = require('mini-css-extract-plugin') <
+
+3 - no terminal digite > npm i mini-css-extract-plugin --save-dev
+
+4 - no lugar de 'css-loader' agora iremos colocar o miniCssExtractPlugin, pois a partir de agora ele ira se encarregar de ler o estilo e tranformar em arquivo css
+
+Dentro de rules:
+Antes:
+    rules: [
+        {
+            test: /\.css$/,
+            use: [
+                'style-loader', 'css-loader'
+            ]
+        }
+    ]
+
+Depois: 
+    rules: [
+        {
+            test: /\.css$/,
+            use: [
+                miniCssExtractPlugin.loader, 'css-loader'
+            ]
+        }
+    ]
+5 - agora iremos criar mais uma chave dentro de webpack.config.js chamada plugins 
+
+    plugins: [
+        new miniCssExtractPlugin({
+            filename: index.css
+        })
+    ]
+
+Webpack.config:
+ 
+const path = require('path'); // caminho absoluto
+module.exports = {
+    entry: './src/index.js', // caminho de entrada
+    output: { // caminho de saida
+        filename: 'bundle.js', // nome do caminho de saida
+        path: path.resove(__dirname, './dist')
+    },
+    module: { // configurar loaders e css
+        rules: [
+            {
+                test: /\.css$/,     < ira verificar se o arquivo é .css
+                use: [
+                    'style-loader', 'css-loader'  // loaders para css
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new miniCssExtractPlugin({
+            filename: index.css   // nome do arquivo css criado
+        })
+    ]
+}
+
+6 - apos a instalacao do mini-css-extract-plugin e adicionar o plugin no webpack.config, no terminal rode > npx webpack, ele ira criar um arquivo chamado index.css na past dist
+
+7 - nesse momento seu h2 deve estar sem estilo > confira.
+
+8 - agora vá em public/index.html e dentro de head adicione um link.css para a pasta dist onde esta seu novo arquivo css, index.css.
+
+Desta maneira:
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../dist/index.css"> // link
+        <title>Teste</title>
+    </head>
+
+Agora no terminal rode novamente > npx webpack.
+
+9 - agora temos um arquivo css externalizado a parte.
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../dist/index.css">
+        <title>Teste</title>
+    </head>
+
+Agora temos um arquivo direto para o css    
+
+/////////////////////////////////////////////////////////////////////////
+
+MODES:
+onde podemos alternar entre modo de desenvolvimente e de producão
+
+bundle.js > arquivo de producão
+
+1 - adicione abaixo de output 
+    > mode: 'development', <
+
+Webpack completo:
+    const path = require('path')
+    const miniCssExtractPlugin = require('mini-css-extract-plugin')
+    module.exports = {
+        entry: './src/index.js',
+        output: {
+            filename: 'bundle.js',
+            path: path.resolve(__dirname, './dist')
+        },
+        mode: 'development', // modo de desenvolvimente
+        module: { 
+            rules: [
+                {
+                    test: /\.css$/,
+                    use: [
+                        miniCssExtractPlugin.loader, 'css-loader'
+                    ]
+                }
+            ]
+        },
+        plugin: [
+            new miniCssExtractPlugin({
+                filename: 'index.css'
+            })
+        ]
+    }
+
+2 - no terminal rode > npx webpack
+3 - apos adicionar > mode: 'development', ele irar criar um codigo em bundle.js que não é minificado e não é otimizado, ele se tornar um arquivo excelente para debugar o codigo e encontrar erros mais facilmente
+4 - sempre que estiver desenvolvendo uma aplicação esteja sempre com o modo development setado > mode: 'development';
+
+///////////////////////////////////////////////////////////////////////// 
+
+GERAR HTML AUTOMATICO
+
+1 - adicione dentro de webpack.config.js um novo plugin
+    > const htmlWebpack = require('html-webpack-plugin') <
+
+2 - dentro de plugin e nem baixo de new miniCssExtractPlugin, cria um novo new, agora new htmlWebpackPlugin
+Dessa maneira:
+    plugin: [
+        new miniCssExtractPlugin({
+            filename: 'index.css'
+        }),
+        new htmlWebpackPlugin({ 
+            filename: index.html
+        })
+    ]
+
+Codigo completo:
+
+    const path = require('path')
+    const miniCssExtractPlugin = require('mini-css-extract-plugin')
+    const htmlWebpackPlugin = require('html-webpack-plugin')
+
+    module.exports - {
+        entry: './src/index.js',
+        output: {
+            filename: 'bundle.js',
+            path: path.resolve(__dirname, './dist')
+        },
+        mode: 'development',
+        module: {
+            rules: [
+                {
+                    test: /\.css$/,
+                    use: [
+                        miniCssExtractPlugin.loader, 'css-loader'
+                    ]
+                }
+            ]
+        },
+        plugin: [
+            new miniCssExtractPlugin({
+                filename: 'index.css'
+            }),
+            new htmlWebpackPlugin({
+                filename: 'index.html'
+            })
+        ]
+    }
+
+3 - apos adicionar htmlWebpackPlugin em webpack, instale o plugin no terminal > npm i html-webpack-plugin --save-dev
+
+4 - agora com htmlWebpackPlugin instalado e configurado dentro de webpack, rode no terminal > npx webpack
+
+5 - sera criado um novo arquivo dentro de dist chamado 'index.html'
+
+/////////////////////////////////////////////////////////////////////////
+
+SERVIDOR DE DESENVOLVIMENTO DO WEBPACK
+
+1 - instale o servidor de desenvolvimento Webpack
+    terminal > npm i webpack-dev-server -save-dev
+
+2 - agora em webpack.config em baixo de mode, crie devServer.
+
+    mode: 'developement',
+    devServer: {
+        static: { 
+            directory: path.resolve(__dirname, './dist')
+        },
+        port: 9000
+    }
+
+3 - Dentro de package.json crie dois script.
+    "build": "webpack", // script para rodar webpack
+    "dev": "webpack server --hot" // script para rodar server do webpack
+4 - 
+
+
+

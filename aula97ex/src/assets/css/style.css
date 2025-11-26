@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    outline: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    --color-verifiqued: #73ff00;
+    --primary-color: #000000a8;
+    --secondary-color: #403777;
+    --primary-color-dark: #628587;
+}
+
+body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Open Sans', sans-serif;
+    background: var(--primary-color);
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 650px;
+    padding: 20px;
+    height:650px;
+    background-color: var(--secondary-color);
+    box-shadow: 5px 5px 13px rgba(0, 0, 0, 0.539);
+}
+
+h1 {
+    margin-top: 120px;
+}
+
+.senha {
+    font-size: 2em;
+    font-weight: 900;
+}
+
+.pp {
+    padding-left: 82px;
+    text-align: left;
+}
+
+#button {
+    margin-top: 20px;
+    font-weight: 600;
+    /* letter-spacing: 1px; */
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    color: #403777;
+    border-radius: 0px 15px 0px 15px;
+    border: solid 3px #4037776d;
+    font-size: 16px;
+}
+#button:active {
+    color: white;
+    background-color: rgb(30, 178, 30);
+}
+
+

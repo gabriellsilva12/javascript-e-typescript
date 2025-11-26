@@ -1,0 +1,4 @@
+gabrielsilva
+flamengo12
+
+mongodb+srv://gabrielsilva:flamengo12@@cursojs1.dpjglpl.mongodb.net/?appName=cursojs1

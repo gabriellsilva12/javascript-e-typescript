@@ -1,0 +1,5 @@
+<% %> Controle de fluxo.
+<%= %> Imprime mostrando caracteres.
+<%- %> Imprime se mostrar caracteres.
+<%# %> Comentario.
+<%- include('caminho') %> Inclui arquivos.
