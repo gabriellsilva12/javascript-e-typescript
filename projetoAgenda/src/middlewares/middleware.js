@@ -12,6 +12,19 @@ exports.ErrorCsrf = (err, req, res, next) => {
     next();
 }
 
+exports.usercheck = ( req, res, next) => {
+    
+    if (!req.session.user) {
+        req.flash('errors', 'Você não esta logado.')
+        req.session.save(function() {
+            res.redirect('/login')
+            return;
+        })
+        return;
+    }
+    next();
+}
+
 exports.csrfToken = (req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     next()

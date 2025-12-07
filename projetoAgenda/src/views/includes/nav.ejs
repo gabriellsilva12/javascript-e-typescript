@@ -7,10 +7,13 @@
     <!-- Direita -->
     <div class="d-flex gap-3">
       <% if(!user) { %>
+        <div class="d-flex gap-3">
+          <a href="/contato/index" class="text-danger text-decoration-none">Criar contatos</a>
+        </div>
         <a href="/login" class="text-danger text-decoration-none">Entrar</a>
         <% } else {%>
           <div class="d-flex gap-3">
-            <a href="/login/contato" class="text-danger text-decoration-none">Criar contatos</a>
+            <a href="/contato/index" class="text-danger text-decoration-none">Criar contatos</a>
           </div>
           <a href="/login/logout" class="text-danger text-decoration-none">Sair</a>
         <% };%>
