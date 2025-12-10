@@ -19,8 +19,10 @@ route.get('/login/enter', loginControler.loginHome)
 
 
 // rotas contato
-route.get('/contato/index', usercheck, contatoControler.index)
-route.post('/contato/register', contatoControler.register)
-route.get('/contato/index/:id', contatoControler.editIndex)
+route.get('/contato/index', usercheck, contatoControler.index) // pagina inicial de contato
+route.post('/contato/register', contatoControler.register) // pagina que ira verificar os dados e criar o contato e no final redirecionar para /contato/index/:id
+route.get('/contato/index/:id', contatoControler.editIndex) // aqui ele ja tem o id do usuario criado dentro de um parametro e ele ira buscar a partir desse id no banco de dados o usuario, e salvar no ejs como uma variavel que podera ser reaproveitado depois( na proxima rota )
+
+route.post('/contato/edit/:id', contatoControler.edit) // apos ser redirecionado essa rota tambem tera dentro dela o id do usuario que foi criado 
 
 module.exports = route;
