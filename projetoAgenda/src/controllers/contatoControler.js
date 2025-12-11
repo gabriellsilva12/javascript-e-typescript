@@ -33,7 +33,7 @@ exports.register = async (req, res) => {
 
 exports.editIndex = async (req, res) => {
     const Contato = new contatoModel()
-    if (!req.params.id) return res.render('404'); // checar como isso funciona e como esta chegando
+    if (!req.params.id) return res.render('404');
 
     const contato = await Contato.buscaPorId(req.params.id)
 
@@ -57,6 +57,7 @@ exports.edit = async (req, res) => {
             })
             return;
         }
+
         if (contato.contato) {
             req.flash('success', 'Contato editado com sucesso!')
             req.session.save(function () {
@@ -65,8 +66,21 @@ exports.edit = async (req, res) => {
             })
             return;
         }
-    } catch(e) { 
-        console.log(e) 
+    } catch (e) {
+        console.log(e)
         res.render('404')
     }
+}
+
+exports.delete = async (req, res) => {
+    if (!req.params.id) return res.render('404');
+    
+    const contato = await contatoModel.delete(req.params.id)
+    if (!contato) return res.render('404');
+
+    req.flash('success', 'Contato apagado com sucesso!')
+    req.session.save(function () {
+        res.redirect('/login/enter')
+        return;
+    })
 }

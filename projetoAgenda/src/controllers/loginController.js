@@ -1,10 +1,14 @@
 const { Login, existingUserLogin } = require('../models/loginModels')
+const Contato = require('../models/contatoModels')
+
 
 exports.index = (req, res) => {
     res.render('login')
 };
-exports.loginHome = (req, res) => {
-    res.render('index')
+
+exports.loginHome = async (req, res) => {
+    const contato = await Contato.buscaContatos()
+    res.render('index', { contato })
 };
 
 exports.register = async (req, res) => {
