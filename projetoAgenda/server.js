@@ -20,11 +20,23 @@ const path = require('path')
 const routes = require('./routes')
 const { middlewareGlobal, ErrorCsrf, csrfToken } = require('./src/middlewares/middleware')
 
-app.use(helmet())
-
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'public')))
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        "default-src": ["'self'"],
+        "script-src": ["'self'", "https://cdn.jsdelivr.net"],
+        "style-src": ["'self'", "https://cdn.jsdelivr.net"],
+        "img-src": ["'self'", "blob:", "data:"],
+        "connect-src": ["'self'", "https://cdn.jsdelivr.net"],
+      },
+    },
+  })
+);
 
 const sessionOptions = session({
     secret: 'fdsfsd',
