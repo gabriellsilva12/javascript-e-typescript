@@ -3,8 +3,14 @@ import 'regenerator-runtime/runtime'
 
 import Login from './assets/modules/login';
 
-const login = new Login('.form-login');
 const cadastro = new Login('.form-cadastro');
+const login = new Login('.form-login');
 
-login.init()
-cadastro.init()
+cadastro.init();
+login.init();
+
+// contato 
+import contato from './assets/modules/contato';
+const tato = new contato('.contatoRegister');
+
+tato.init()

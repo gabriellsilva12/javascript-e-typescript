@@ -1,6 +1,68 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./frontend/assets/modules/contato.js":
+/*!********************************************!*\
+  !*** ./frontend/assets/modules/contato.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ contato)
+/* harmony export */ });
+/* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validator */ "./node_modules/validator/index.js");
+/* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validator__WEBPACK_IMPORTED_MODULE_0__);
+
+function contato(formClass) {
+  this.form = document.querySelector(formClass);
+}
+contato.prototype.init = function () {
+  if (!this.form) return;
+  this.events();
+};
+contato.prototype.events = function () {
+  var _this = this;
+  this.form.addEventListener('submit', function (e) {
+    e.preventDefault(); // faz uma checagem no formulario antes de enviar para o back-end
+    _this.validate(e);
+  });
+};
+contato.prototype.validate = function (e) {
+  var el = e.target;
+  var nomeInput = el.querySelector('input[name="nome"');
+  var emailInput = el.querySelector('input[name="email"');
+  var telefoneInput = el.querySelector('input[name="telefone"');
+  var errors = false;
+  var errorsInputs = [];
+  if (!nomeInput.value) {
+    errorsInputs.push('Nome é obrigatorio!');
+    errors = true;
+  }
+  if (!emailInput.value && !telefoneInput.value) {
+    errorsInputs.push('Por favor digite email ou telefone do contato!');
+    errors = true;
+  }
+  if (emailInput.value && !validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(emailInput.value)) {
+    errorsInputs.push('Email inválidoo!');
+    errors = true;
+  }
+  if (errorsInputs.length > 0) {
+    var message = document.querySelector('#messagesValida');
+    var div = document.createElement('div');
+    message.innerHTML = '';
+    div.className = 'alert alert-danger';
+    errorsInputs.forEach(function (e) {
+      div.innerHTML += "".concat(e, " <br>");
+    });
+    message.appendChild(div);
+  }
+  if (!errors) el.submit();
+};
+
+/***/ }),
+
 /***/ "./frontend/assets/modules/login.js":
 /*!******************************************!*\
   !*** ./frontend/assets/modules/login.js ***!
@@ -14,64 +76,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validator */ "./node_modules/validator/index.js");
 /* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validator__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
-function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
-var login = /*#__PURE__*/function () {
-  function login(formClass) {
-    _classCallCheck(this, login);
-    this.form = document.querySelector(formClass);
+function login(formClass) {
+  this.form = document.querySelector(formClass);
+}
+login.prototype.init = function () {
+  if (!this.form) return;
+  this.events();
+};
+login.prototype.events = function () {
+  var _this = this;
+  this.form.addEventListener('submit', function (e) {
+    e.preventDefault(); // faz uma checagem no formulario antes de enviar para o back-end
+    _this.validate(e);
+  });
+};
+login.prototype.validate = function (e) {
+  var el = e.target;
+  var emailInput = el.querySelector('input[name="email"');
+  var passwordInput = el.querySelector('input[name="password"');
+  var errors = false;
+  var errorsInputs = [];
+  if (!validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(emailInput.value)) {
+    errorsInputs.push('Email inválidoo!');
+    errors = true;
   }
-  return _createClass(login, [{
-    key: "init",
-    value: function init() {
-      this.events();
-    }
-  }, {
-    key: "events",
-    value: function events() {
-      var _this = this;
-      if (!this.form) ;
-      this.form.addEventListener('submit', function (e) {
-        e.preventDefault(); // faz uma checagem no formulario antes de enviar para o back-end
-        _this.validate(e);
-      });
-    }
-  }, {
-    key: "validate",
-    value: function validate(e) {
-      var el = e.target;
-      var emailInput = el.querySelector('input[name="email"');
-      var passwordInput = el.querySelector('input[name="password"');
-      var errors = false;
-      var errorsInputs = [];
-      if (!validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(emailInput.value)) {
-        errorsInputs.push('Email inválido!');
-        errors = true;
-      }
-      if (passwordInput.value.length < 3 || passwordInput.value.length > 50) {
-        errorsInputs.push('Senha inválida, sua senha deve ter entre 3 e 50 caracteres!');
-        errors = true;
-      }
-      if (errorsInputs.length > 0) {
-        var message = document.querySelector('#messagesValida');
-        var div = document.createElement('div');
-        message.innerHTML = '';
-        div.className = 'alert alert-danger';
-        errorsInputs.forEach(function (e) {
-          div.innerHTML += "".concat(e, " <br>");
-        });
-        message.appendChild(div);
-      }
-      if (!errors) el.submit();
-    }
-  }]);
-}();
-
+  if (passwordInput.value.length < 3 || passwordInput.value.length > 50) {
+    errorsInputs.push('Senha inválida, sua senha deve ter entre 3 e 50 caracteres!');
+    errors = true;
+  }
+  if (errorsInputs.length > 0) {
+    var message = document.querySelector('#messagesValida');
+    var div = document.createElement('div');
+    message.innerHTML = '';
+    div.className = 'alert alert-danger';
+    errorsInputs.forEach(function (e) {
+      div.innerHTML += "".concat(e, " <br>");
+    });
+    message.appendChild(div);
+  }
+  if (!errors) el.submit();
+};
 
 /***/ }),
 
@@ -33919,13 +33964,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _assets_modules_login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/modules/login */ "./frontend/assets/modules/login.js");
+/* harmony import */ var _assets_modules_contato__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./assets/modules/contato */ "./frontend/assets/modules/contato.js");
 
 
 
-var login = new _assets_modules_login__WEBPACK_IMPORTED_MODULE_2__["default"]('.form-login');
 var cadastro = new _assets_modules_login__WEBPACK_IMPORTED_MODULE_2__["default"]('.form-cadastro');
-login.init();
+var login = new _assets_modules_login__WEBPACK_IMPORTED_MODULE_2__["default"]('.form-login');
 cadastro.init();
+login.init();
+
+// contato 
+
+var tato = new _assets_modules_contato__WEBPACK_IMPORTED_MODULE_3__["default"]('.contatoRegister');
+tato.init();
 })();
 
 /******/ })()
